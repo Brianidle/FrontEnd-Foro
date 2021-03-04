@@ -12,7 +12,6 @@ const HomeLayout = styled.div`
 `;
 
 const AsideContainer = styled.aside`
-  height: 400px;
   margin-left:30px;
   border-radius: 5px;
 `;

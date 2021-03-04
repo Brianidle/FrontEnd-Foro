@@ -4,8 +4,6 @@ import styled from "styled-components";
 
 const Main=styled.main`
   background-color:#dae0e6;
-  display: block;
-  height:100%;
   padding-top:48px;
 `;
 
