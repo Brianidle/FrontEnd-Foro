@@ -1,6 +1,13 @@
 import React, { useEffect } from "react";
+import styled from "styled-components";
 
 import GeneralForm from "../components/GeneralForm";
+
+const Layout = styled.div`
+  height: 100vh;
+  text-align: center;
+  margin-top: 25px;
+`;
 
 const SignIn = () => {
   useEffect(() => {
@@ -8,9 +15,9 @@ const SignIn = () => {
   });
 
   return (
-    <div style={{marginTop:15,height:"100vh",textAlign:"center"}}>
+    <Layout>
       <GeneralForm buttonText="Sign In" />
-    </div>
+    </Layout>
   );
 };
 
