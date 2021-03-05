@@ -8,6 +8,7 @@ import PersonIcon from "@material-ui/icons/Person";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import FiberNewIcon from "@material-ui/icons/FiberNew";
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 const DropDownOptionButton = styled.a`
   display: flex;
@@ -27,17 +28,26 @@ const UserDropDown = (props) => {
       </button>
       <div class="dropdown-content">
         <DropDownOptionButton onClick={() => {
+            props.history.push("/newpost");
+          }}>
+          <AddCircleIcon />
+          <TextButton>New Post</TextButton>
+        </DropDownOptionButton>
+
+        <DropDownOptionButton onClick={() => {
             props.history.push("/myposts");
           }}>
           <LibraryBooksIcon />
           <TextButton>My Posts</TextButton>
         </DropDownOptionButton>
+
         <DropDownOptionButton onClick={() => {
             props.history.push("/signin");
           }}>
           <VpnKeyIcon />
           <TextButton>LogIn</TextButton>
         </DropDownOptionButton>
+        
         <DropDownOptionButton onClick={() => {
             props.history.push("/signup");
           }}>

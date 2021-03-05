@@ -7,6 +7,7 @@ import Home from "./home";
 import SignIn from "./signIn";
 import SignUp from "./signUp";
 import MyPosts from "./myposts";
+import NewPost from "./newpost";
 
 const Pages = () => {
   return (
@@ -16,6 +17,7 @@ const Pages = () => {
         <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={SignUp} />
         <Route path="/myposts" component={MyPosts} />
+        <Route path="/newpost" component={NewPost} />
       </Layout>
     </Router>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import FormatPaintIcon from "@material-ui/icons/FormatPaint";
 import { withRouter } from "react-router-dom";
+import FormatPaintIcon from "@material-ui/icons/FormatPaint";
 
 import SearchBar from "./SearchBar";
 import UserDropDown from "./UserDropDown";
@@ -13,7 +13,7 @@ const HeaderBar = styled.header`
   flex-direction: row;
   align-items: center;
   height: 48px;
-  position:fixed;
+  position: fixed;
 `;
 
 const HomeButton = styled.button`
@@ -22,21 +22,22 @@ const HomeButton = styled.button`
   border-radius: 5px;
   padding: 0px;
   cursor: pointer;
-  outline:none;
+  outline: none;
 `;
 
-const NavigatorButton = styled.button`
-  width: 80px;
+const NavigationBarButton = styled.button`
+  width: 64px;
+  min-width: 58px;
   height: 100%;
-  margin: 0px 3%;
+  margin-right: 10px;
   border-radius: 15px;
   cursor: pointer;
-  outline:none;
+  outline: none;
 `;
 
 const LogoContainer = styled.div`
   width: 10%;
-  margin-left:25px;
+  margin-left: 25px;
 `;
 
 const SearchBarContainer = styled.div`
@@ -44,21 +45,12 @@ const SearchBarContainer = styled.div`
 `;
 
 const SignInSignUpButtonContainer = styled.div`
-  width: 15%;
   height: 80%;
   display: flex;
   justify-content: center;
 `;
 
-const UserOptionsContainer = styled.div`
-  width: 10%;
-  height: 80%;
-  display: flex;
-  justify-content: center;
-`;
-
-//
-const NavigatorBar = (props) => {
+const NavigationBar = (props) => {
   return (
     <HeaderBar>
       <LogoContainer>
@@ -79,26 +71,24 @@ const NavigatorBar = (props) => {
       </SearchBarContainer>
 
       <SignInSignUpButtonContainer>
-        <NavigatorButton
+        <NavigationBarButton
           onClick={() => {
             props.history.push("/signin");
           }}
         >
-          SignIn
-        </NavigatorButton>
-        <NavigatorButton
+          Sign In
+        </NavigationBarButton>
+        <NavigationBarButton
           onClick={() => {
             props.history.push("/signup");
           }}
         >
-          SignUp
-        </NavigatorButton>
+          Sign Up
+        </NavigationBarButton>
       </SignInSignUpButtonContainer>
-          <UserDropDown/>
-      <UserOptionsContainer>
-      </UserOptionsContainer>
+      <UserDropDown />
     </HeaderBar>
   );
 };
 
-export default withRouter(NavigatorBar);
+export default withRouter(NavigationBar);
