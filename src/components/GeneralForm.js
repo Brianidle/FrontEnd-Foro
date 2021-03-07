@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const Input = styled.input`
@@ -13,8 +13,28 @@ const Button = styled.button`
 `;
 
 const GeneralForm = (props) => {
+
+  const [values, setValue] = useState();
+
+  const onChangue = (event) => {
+    setValue({ ...values, [event.target.name]: event.target.value });
+    
+    console.log(values);
+  };
+  
   return (
-    <form>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+
+        //llamo a la función action que le pasan a NoteForm por parametro y le agrego una variable values.
+        props.action({
+          variables: {
+            ...values
+          }
+        });
+      }}
+    >
       <div>
         <label htmlFor="username">Username: </label>
         <Input
@@ -22,6 +42,7 @@ const GeneralForm = (props) => {
           id="username"
           name="username"
           placeholder="username"
+          onChange={onChangue}
         ></Input>
       </div>
 
@@ -34,6 +55,7 @@ const GeneralForm = (props) => {
             name="email"
             type="email"
             placeholder="email"
+            onChange={onChangue}
           ></Input>
         </div>
       )}
@@ -46,6 +68,7 @@ const GeneralForm = (props) => {
           name="password"
           type="password"
           placeholder="password"
+          onChange={onChangue}
         ></Input>
       </div>
 
