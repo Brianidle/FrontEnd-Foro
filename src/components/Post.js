@@ -1,8 +1,15 @@
-import React from "react";
+import React from 'react';
+
+import PropTypes from 'prop-types';
+
 import styled from "styled-components";
 import ModeCommentIcon from "@material-ui/icons/ModeComment";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+
+const propTypes = {
+  post: PropTypes.object.isRequired
+};
 
 const PostPanel = styled.div`
   min-width: 640px;
@@ -140,7 +147,7 @@ const PointDownButton = styled.button`
   }
 `;
 
-const Post = () => {
+const Post = ({post}) => {
   return (
     <PostPanel>
       <UpDownPointsPanel>
@@ -175,25 +182,11 @@ const Post = () => {
         </TopOfThePostPanel>
 
         <TitleContainer>
-          <span>I ended it up</span>
+          <span>{post.title}</span>
         </TitleContainer>
 
         <PostContentContainer>
-          Lorem ipsum dolor sit amet consectetur adipiscing, elit luctus dictum
-          dis magnis habitant, faucibus pharetra blandit ut odio. Pretium rutrum
-          porttitor vitae vel luctus cubilia conubia quis tincidunt iaculis
-          varius, aenean tristique felis scelerisque senectus dapibus curabitur
-          cursus non hac. Pharetra enim accumsan suscipit aliquam massa praesent
-          nascetur rhoncus, semper himenaeos turpis etiam aliquet maecenas.
-          Proin neque egestas potenti varius blandit nisl et lacinia inceptos
-          quis, vestibulum cubilia ut lobortis conubia lectus hendrerit taciti
-          diam malesuada, mi elementum platea etiam natoque mollis vel
-          suspendisse eleifend. Urna pulvinar ut nam fringilla hendrerit velit
-          himenaeos natoque placerat imperdiet, laoreet taciti metus facilisi
-          nisi porttitor diam eu. Luctus integer elementum porttitor primis
-          scelerisque ac justo tempor ridiculus nunc, ullamcorper at dapibus
-          proin sapien leo facilisis imperdiet commodo aliquet mattis, interdum
-          quis praesent potenti volutpat diam nibh laoreet semper.
+          {post.content}
         </PostContentContainer>
 
         <BottomOfThePostPanel>
@@ -204,5 +197,7 @@ const Post = () => {
     </PostPanel>
   );
 };
+
+Post.propTypes = propTypes;
 
 export default Post;
