@@ -21,12 +21,12 @@ const TextButton = styled.div`
 
 const UserDropDown = (props) => {
   return (
-    <div class="dropdown">
-      <button class="dropbtn">
+    <div className="dropdown">
+      <button className="dropbtn">
         <PersonIcon />
         <ArrowDropDownIcon />
       </button>
-      <div class="dropdown-content">
+      <div className="dropdown-content">
         <DropDownOptionButton onClick={() => {
             props.history.push("/newpost");
           }}>
