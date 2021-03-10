@@ -23,6 +23,7 @@ const HomeButton = styled.button`
   padding: 0px;
   cursor: pointer;
   outline: none;
+  background-color: #1976d2;
 `;
 
 const NavigationBarButton = styled.button`
@@ -58,7 +59,6 @@ const NavigationBar = (props) => {
           onClick={() => {
             props.history.push("/");
           }}
-          style={{ backgroundColor: "#1976d2" }}
         >
           <FormatPaintIcon
             style={{ color: "white", fontSize: 30, textAlign: "center" }}

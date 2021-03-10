@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import GeneralForm from "../components/GeneralForm";
@@ -11,12 +11,17 @@ const Layout = styled.div`
   margin-top: 25px;
 `;
 
-const SignIn = () => {
-  const [signIn, { loading, data }] = useLazyQuery(SIGN_IN, {
+const SignIn = (props) => {
+  const [error, setError] = useState("");
+
+  const [signIn, { data }] = useLazyQuery(SIGN_IN, {
     onCompleted: () => {
-      //guardar key en el estado redux
-      console.log("DATA SIGNIN");
-      console.log(data);
+      if (data.signIn && data.signIn !== "UNSUCCESSFUL_SIGNIN") {
+        localStorage.setItem("token", data.signIn);
+        props.history.push("/");
+      } else {
+        setError(data.signIn);
+      }
     },
   });
 
@@ -24,11 +29,13 @@ const SignIn = () => {
     document.title = "SignIn Page";
   });
 
-  if (loading) return <p>Loading...</p>;
-
   return (
     <Layout>
-      <GeneralForm buttonText="Sign In" action={signIn} />
+      <GeneralForm
+        buttonText="Sign In"
+        requestTrigger={signIn}
+        errorCode={error}
+      />
     </Layout>
   );
 };

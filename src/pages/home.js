@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 import PostList from "../components/PostList";
 
-import {useQuery} from '@apollo/client';
-import {GET_POSTS} from '../gql/query';
+import { useQuery } from "@apollo/client";
+import { GET_POSTS } from "../gql/query";
 
 const HomeLayout = styled.div`
   padding-top: 25px;
@@ -33,16 +33,15 @@ const Home = () => {
     document.title = "Home Page";
   });
 
-  const {loading, data } = useQuery(GET_POSTS);
-  console.log(data);
-  
+  const { loading, data } = useQuery(GET_POSTS);
+
   if (loading) return <p>Loading...</p>;
-  
+
   return (
     <HomeLayout>
       <PostsContainer>
-        <PostList posts={data.posts}/>
-      </PostsContainer> 
+        <PostList posts={data.posts} />
+      </PostsContainer>
       <AsideContainer>
         <AboutLinksContainer>ABOUT PANEL</AboutLinksContainer>
       </AsideContainer>
