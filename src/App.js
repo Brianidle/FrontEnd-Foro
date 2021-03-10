@@ -8,9 +8,20 @@ import {
 } from "@apollo/client";
 import { setContext } from "apollo-link-context";
 
+import { createStore, combineReducers } from "redux";
+import { Provider } from "react-redux";
+
+import { changueTokenReducer } from "./reducers/changueToken";
+
 const uri = "http://localhost:4000/foroApi";
 const httpLink = createHttpLink({ uri });
 const cache = new InMemoryCache();
+
+let rootReducer = combineReducers({
+  tokenState: changueTokenReducer,
+});
+
+const store = createStore(rootReducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 const authLink = setContext((_, { headers }) => {
   return {
@@ -31,7 +42,9 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Pages />
+      <Provider store={store}>
+        <Pages />
+      </Provider>
     </ApolloProvider>
   );
 }

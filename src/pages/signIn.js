@@ -5,6 +5,9 @@ import GeneralForm from "../components/GeneralForm";
 import { SIGN_IN } from "../gql/query";
 import { useLazyQuery } from "@apollo/client";
 
+import { connect } from "react-redux";
+import {doChangueToken} from '../actions/actionCreators';
+
 const Layout = styled.div`
   height: 100vh;
   text-align: center;
@@ -16,11 +19,15 @@ const SignIn = (props) => {
 
   const [signIn, { data }] = useLazyQuery(SIGN_IN, {
     onCompleted: () => {
-      if (data.signIn && data.signIn !== "UNSUCCESSFUL_SIGNIN") {
-        localStorage.setItem("token", data.signIn);
+      
+      let token=data.signIn;
+      if (token && token !== "UNSUCCESSFUL_SIGNIN") {
+
+        localStorage.setItem("token", token);
+        props.changueTokenState(token);
         props.history.push("/");
       } else {
-        setError(data.signIn);
+        setError(token);
       }
     },
   });
@@ -40,4 +47,10 @@ const SignIn = (props) => {
   );
 };
 
-export default SignIn;
+function mapDispatchToProps(dispatch) {
+  return {
+    changueTokenState: (token) => dispatch(doChangueToken(token))
+  };
+}
+
+export default connect(null,mapDispatchToProps)(SignIn);
