@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import styled from "styled-components";
 import ModeCommentIcon from "@material-ui/icons/ModeComment";
@@ -8,48 +8,12 @@ import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 
 const propTypes = {
-  post: PropTypes.object.isRequired
+  post: PropTypes.object.isRequired,
 };
-
-const PostPanel = styled.div`
-  min-width: 640px;
-  max-width: 640px;
-  width: 640px;
-  display: flex;
-  flex-direction: row;
-  background-color: white;
-  cursor: pointer;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  font-size: 14px;
-
-  :hover {
-    border-width: 0.2px;
-    border-style: solid;
-    border-color: black;
-  }
-`;
-
-const UpDownPointsPanel = styled.div`
-  width: 40px;
-  background-color: #ff1a1a;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-`;
 
 const PostInfoPanel = styled.div`
   width: 690px;
   padding-top: 8px;
-`;
-
-const TopOfThePostPanel = styled.div`
-  height: 30px;
-  display: flex;
-  flex-direction: row;
-  border-top-right-radius: 5px;
-  margin-bottom: 8px;
-  margin-right: 8px;
-  margin-left: 8px;
 `;
 
 const ImagenSubForoContainer = styled.div`
@@ -66,16 +30,6 @@ const UserAndSubForoNameContainer = styled.div`
 const PostContentContainer = styled.div`
   width: 90%;
   margin: 0 auto;
-`;
-
-const BottomOfThePostPanel = styled.div`
-  height: 32px;
-  display: flex;
-  flex-direction: row;
-  min-width: 100%;
-  border-bottom-right-radius: 5px;
-  margin-left: 8px;
-  margin-top:4px;
 `;
 
 const SubForoName = styled.a`
@@ -120,42 +74,92 @@ const ArrowsAndPointsContainer = styled.div`
 const PointUpButton = styled.button`
   background: transparent;
   padding: 0;
-  border:0;
-  color:white;
-  cursor:pointer;
-  border-radius:20%;
-  outline:none;
+  border: 0;
+  color: white;
+  cursor: pointer;
+  border-radius: 20%;
+  outline: none;
 
   :hover {
     background: white;
-    color:orange;
+    color: orange;
   }
 `;
 
 const PointDownButton = styled.button`
   background: transparent;
   padding: 0;
-  border:0;
+  border: 0;
   color: white;
-  cursor:pointer;
-  border-radius:20%;
-  outline:none;
-  
+  cursor: pointer;
+  border-radius: 20%;
+  outline: none;
+
   :hover {
     background: white;
-    color:orange;
+    color: orange;
   }
 `;
 
-const Post = ({post}) => {
+const PostView = ({ post, isSelectable, isBordered, windowLocationFunc }) => {
+  const PostPanel = styled.div`
+    min-width: 640px;
+    max-width: 640px;
+    width: 640px;
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    margin-bottom: 20px;
+    font-size: 14px;
+
+    ${isSelectable &&
+    `cursor:pointer;
+  border-radius: 5px;
+  :hover {
+    border:0.2px solid black;
+  }`}
+  `;
+
+  const UpDownPointsPanel = styled.div`
+    width: 40px;
+    background-color: #ff1a1a;
+    ${isBordered &&
+    `
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  `}
+  `;
+
+  const TopOfThePostPanel = styled.div`
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 8px;
+    margin-right: 8px;
+    margin-left: 8px;
+
+    ${isBordered && "border-top-right-radius: 5px"};
+  `;
+
+  const BottomOfThePostPanel = styled.div`
+    height: 32px;
+    display: flex;
+    flex-direction: row;
+    min-width: 100%;
+    margin-left: 8px;
+    margin-top: 4px;
+
+    ${isBordered && "border-bottom-right-radius: 5px"};
+  `;
+
   return (
-    <PostPanel>
+    <PostPanel onClick={windowLocationFunc}>
       <UpDownPointsPanel>
         <ArrowsAndPointsContainer>
           <PointUpButton>
             <KeyboardArrowUpIcon style={{ fontSize: 25 }} />
           </PointUpButton>
-          <span style={{ fontWeight: 650, color:"white" }}>154</span>
+          <span style={{ fontWeight: 650, color: "white" }}>154</span>
           <PointDownButton>
             <KeyboardArrowDownIcon style={{ fontSize: 25 }} />
           </PointDownButton>
@@ -185,9 +189,7 @@ const Post = ({post}) => {
           <span>{post.title}</span>
         </TitleContainer>
 
-        <PostContentContainer>
-          {post.content}
-        </PostContentContainer>
+        <PostContentContainer>{post.content}</PostContentContainer>
 
         <BottomOfThePostPanel>
           <ModeCommentIcon style={{ paddingTop: 5, fontSize: 21 }} />
@@ -198,6 +200,6 @@ const Post = ({post}) => {
   );
 };
 
-Post.propTypes = propTypes;
+PostView.propTypes = propTypes;
 
-export default Post;
+export default PostView;

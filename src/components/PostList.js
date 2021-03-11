@@ -1,21 +1,17 @@
-import React from 'react';
+import React from "react";
 
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-import Post from "./Post";
+import PostView from "./PostView";
 
 const propTypes = {
-  posts: PropTypes.array.isRequired
+  posts: PropTypes.array.isRequired,
 };
 
-const PostList = ({posts}) => {
-  return (
-    <div>
-      {posts.map(post => (
-        <Post post={post} key={post.id}/>
-      ))}
-    </div>
-  );
+const PostList = ({ posts }) => {
+  return posts.map((post) => (
+      <PostView post={post} key={post.id} isSelectable={true} isBordered={true} windowLocationFunc={()=>window.location.href=`post/${post.id}`}/>
+  ));
 };
 
 PostList.propTypes = propTypes;

@@ -1,11 +1,23 @@
 import { gql } from "@apollo/client";
 
+const GET_POST = gql`
+  query Post($idPost: ID!) {
+    post(idPost: $idPost) {
+      id
+      title
+      content
+      urlImage
+    }
+  }
+`;
+
 const GET_POSTS = gql`
   query {
     posts {
       id
       title
       content
+      urlImage
     }
   }
 `;
@@ -16,6 +28,7 @@ const GET_AUTHOR_POSTS = gql`
       id
       title
       content
+      urlImage
     }
   }
 `;
@@ -26,4 +39,4 @@ const SIGN_IN = gql`
   }
 `;
 
-export { GET_POSTS, GET_AUTHOR_POSTS, SIGN_IN };
+export { GET_POST, GET_POSTS, GET_AUTHOR_POSTS, SIGN_IN };
