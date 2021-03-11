@@ -8,7 +8,8 @@ import PersonIcon from "@material-ui/icons/Person";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import FiberNewIcon from "@material-ui/icons/FiberNew";
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 
 const DropDownOptionButton = styled.a`
   display: flex;
@@ -27,33 +28,60 @@ const UserDropDown = (props) => {
         <ArrowDropDownIcon />
       </button>
       <div className="dropdown-content">
-        <DropDownOptionButton onClick={() => {
-            props.history.push("/newpost");
-          }}>
-          <AddCircleIcon />
-          <TextButton>New Post</TextButton>
-        </DropDownOptionButton>
+        {props.token && (
+          <div>
+            <DropDownOptionButton
+              onClick={() => {
+                props.history.push("/newpost");
+              }}
+            >
+              <AddCircleIcon />
+              <TextButton>New Post</TextButton>
+            </DropDownOptionButton>
 
-        <DropDownOptionButton onClick={() => {
-            props.history.push("/myposts");
-          }}>
-          <LibraryBooksIcon />
-          <TextButton>My Posts</TextButton>
-        </DropDownOptionButton>
+            <DropDownOptionButton
+              onClick={() => {
+                props.history.push("/myposts");
+              }}
+            >
+              <LibraryBooksIcon />
+              <TextButton>My Posts</TextButton>
+            </DropDownOptionButton>
+          </div>
+        )}
+        {!props.token && (
+          <div>
+            <DropDownOptionButton
+              onClick={() => {
+                props.history.push("/signin");
+              }}
+            >
+              <VpnKeyIcon />
+              <TextButton>Log In</TextButton>
+            </DropDownOptionButton>
 
-        <DropDownOptionButton onClick={() => {
-            props.history.push("/signin");
-          }}>
-          <VpnKeyIcon />
-          <TextButton>LogIn</TextButton>
-        </DropDownOptionButton>
-        
-        <DropDownOptionButton onClick={() => {
-            props.history.push("/signup");
-          }}>
-          <FiberNewIcon />
-          <TextButton>SignUp</TextButton>
-        </DropDownOptionButton>
+            <DropDownOptionButton
+              onClick={() => {
+                props.history.push("/signup");
+              }}
+            >
+              <FiberNewIcon />
+              <TextButton>Sign Up</TextButton>
+            </DropDownOptionButton>
+          </div>
+        )}
+        {props.token && (
+          <DropDownOptionButton
+            onClick={() => {
+              props.deleteTokenFromState();
+              localStorage.removeItem("token");
+              props.history.push("/");
+            }}
+          >
+            <MeetingRoomIcon />
+            <TextButton>Sign Off</TextButton>
+          </DropDownOptionButton>
+        )}
       </div>
     </div>
   );

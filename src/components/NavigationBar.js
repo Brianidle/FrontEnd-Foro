@@ -6,6 +6,9 @@ import FormatPaintIcon from "@material-ui/icons/FormatPaint";
 import SearchBar from "./SearchBar";
 import UserDropDown from "./UserDropDown";
 
+import { connect } from "react-redux";
+import {doChangueToken} from '../actions/actionCreators';
+
 const HeaderBar = styled.header`
   background-color: #ff1a1a;
   min-width: 100%;
@@ -69,26 +72,40 @@ const NavigationBar = (props) => {
       <SearchBarContainer>
         <SearchBar />
       </SearchBarContainer>
+      {!props.token && (
+        <SignInSignUpButtonContainer>
+          <NavigationBarButton
+            onClick={() => {
+              props.history.push("/signin");
+            }}
+          >
+            Sign In
+          </NavigationBarButton>
+          <NavigationBarButton
+            onClick={() => {
+              props.history.push("/signup");
+            }}
+          >
+            Sign Up
+          </NavigationBarButton>
+        </SignInSignUpButtonContainer>
+      )}
 
-      <SignInSignUpButtonContainer>
-        <NavigationBarButton
-          onClick={() => {
-            props.history.push("/signin");
-          }}
-        >
-          Sign In
-        </NavigationBarButton>
-        <NavigationBarButton
-          onClick={() => {
-            props.history.push("/signup");
-          }}
-        >
-          Sign Up
-        </NavigationBarButton>
-      </SignInSignUpButtonContainer>
-      <UserDropDown />
+      <UserDropDown token={props.token} deleteTokenFromState={props.deleteTokenFromState}/>
     </HeaderBar>
   );
 };
 
-export default withRouter(NavigationBar);
+const mapStateToProps = (state) => {
+  return {
+    token: state.tokenState,
+  };
+};
+
+const mapDispatchToProps= (dispatch)=>{
+  return {
+    deleteTokenFromState:()=>{dispatch(doChangueToken(""))}
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(NavigationBar));

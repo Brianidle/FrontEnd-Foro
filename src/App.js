@@ -12,6 +12,7 @@ import { createStore, combineReducers } from "redux";
 import { Provider } from "react-redux";
 
 import { changueTokenReducer } from "./reducers/changueToken";
+import { doChangueToken } from "./actions/actionCreators";
 
 const uri = "http://localhost:4000/foroApi";
 const httpLink = createHttpLink({ uri });
@@ -21,7 +22,10 @@ let rootReducer = combineReducers({
   tokenState: changueTokenReducer,
 });
 
-const store = createStore(rootReducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(
+  rootReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 const authLink = setContext((_, { headers }) => {
   return {
@@ -40,6 +44,11 @@ const client = new ApolloClient({
 });
 
 function App() {
+  let token = localStorage.getItem("token");
+  if (token) {
+    store.dispatch(doChangueToken(token));
+  }
+
   return (
     <ApolloProvider client={client}>
       <Provider store={store}>
