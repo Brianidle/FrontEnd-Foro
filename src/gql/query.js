@@ -31,12 +31,15 @@ const GET_POSTS = gql`
 `;
 
 const GET_AUTHOR_POSTS = gql`
-  query AuthorPosts($idAuthor: ID!) {
-    authorPosts(idAuthor: $idAuthor) {
+  query {
+    authorPosts {
       id
       title
       content
       urlImage
+      author{
+        username
+      }
     }
   }
 `;

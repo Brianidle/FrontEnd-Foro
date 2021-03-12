@@ -17,12 +17,12 @@ const MyPosts = () => {
     document.title = "My Posts Page";
   });
 
-  const {loading, data } = useQuery(GET_AUTHOR_POSTS,{variables:{idAuthor:"603aa5f0d7955a1cf836cb4a"}});
+  const {loading, data } = useQuery(GET_AUTHOR_POSTS);
   
   if (loading) return <p>Loading...</p>;
 
   return (
-    <Layout>
+    <Layout style={{height:"100vh"}}>
       <PostList posts={data.authorPosts}/>
     </Layout>
   );
