@@ -7,6 +7,10 @@ const GET_POST = gql`
       title
       content
       urlImage
+      createdAt
+      author{
+        username
+      }
     }
   }
 `;
@@ -18,6 +22,10 @@ const GET_POSTS = gql`
       title
       content
       urlImage
+      createdAt
+      author{
+        username
+      }
     }
   }
 `;

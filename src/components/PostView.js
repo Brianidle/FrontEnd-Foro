@@ -6,13 +6,14 @@ import styled from "styled-components";
 import ModeCommentIcon from "@material-ui/icons/ModeComment";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import moment from 'moment';
 
 const propTypes = {
   post: PropTypes.object.isRequired,
 };
 
 const PostInfoPanel = styled.div`
-  width: 690px;
+  width: 640px;
   padding-top: 8px;
 `;
 
@@ -28,8 +29,7 @@ const UserAndSubForoNameContainer = styled.div`
 `;
 
 const PostContentContainer = styled.div`
-  width: 90%;
-  margin: 0 auto;
+  margin-left: 8px;
 `;
 
 const SubForoName = styled.a`
@@ -153,7 +153,7 @@ const PostView = ({ post, isSelectable, isBordered, windowLocationFunc }) => {
   `;
 
   return (
-    <PostPanel onClick={windowLocationFunc}>
+    <PostPanel>
       <UpDownPointsPanel>
         <ArrowsAndPointsContainer>
           <PointUpButton>
@@ -166,7 +166,7 @@ const PostView = ({ post, isSelectable, isBordered, windowLocationFunc }) => {
         </ArrowsAndPointsContainer>
       </UpDownPointsPanel>
 
-      <PostInfoPanel>
+      <PostInfoPanel onClick={windowLocationFunc}>
         <TopOfThePostPanel>
           <ImagenSubForoContainer>
             <a href="https://www.google.com">
@@ -180,8 +180,10 @@ const PostView = ({ post, isSelectable, isBordered, windowLocationFunc }) => {
             <SubForoName href="https://www.youtube.com">f/tenis</SubForoName>
             <span style={{ color: "#787c7e" }}> . </span>
             <span style={{ color: "#787c7e" }}>Posted by </span>
-            <UserName href="https://www.reddit.com">u/casnojk </UserName>
-            <span style={{ color: "#787c7e" }}>14 hours ago</span>
+            <UserName href="https://www.reddit.com">
+              u/{post.author.username}{" "}
+            </UserName>
+            <span style={{ color: "#787c7e" }}>{moment(post.createdAt,"YYYYMMDD").fromNow()}</span>
           </UserAndSubForoNameContainer>
         </TopOfThePostPanel>
 
