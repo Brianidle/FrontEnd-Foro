@@ -27,15 +27,15 @@ const NEW_POST = gql`
 const EDIT_POST = gql`
   mutation EditPost(
     $idPost: ID!
-    $newTitle: String
-    $newContent: String
-    $newUrlImage: String
+    $title: String
+    $content: String
+    $urlImage: String
   ) {
     editPost(
       idPost: $idPost
-      newTitle: $newTitle
-      newContent: $newContent
-      newUrlImage: $newUrlImage
+      title: $title
+      content: $content
+      urlImage: $urlImage
     )
   }
 `;

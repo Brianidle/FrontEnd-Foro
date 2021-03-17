@@ -8,6 +8,7 @@ import SignIn from "./signIn";
 import SignUp from "./signUp";
 import MyPosts from "./myposts";
 import NewPost from "./newpost";
+import EditPost from './editpost';
 import Post from "./post";
 
 const Pages = () => {
@@ -19,6 +20,7 @@ const Pages = () => {
         <Route path="/signup" component={SignUp} />
         <Route path="/myposts" component={MyPosts} />
         <Route path="/newpost" component={NewPost} />
+        <Route path="/editpost" component={EditPost} />
         <Route path="/post/:id" component={Post} />
       </Layout>
     </Router>
