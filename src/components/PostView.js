@@ -6,7 +6,11 @@ import styled from "styled-components";
 import ModeCommentIcon from "@material-ui/icons/ModeComment";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
-import moment from 'moment';
+import EditIcon from "@material-ui/icons/Edit";
+
+import { withRouter } from "react-router-dom";
+
+import moment from "moment";
 
 const propTypes = {
   post: PropTypes.object.isRequired,
@@ -101,7 +105,19 @@ const PointDownButton = styled.button`
   }
 `;
 
-const PostView = ({ post, isSelectable, isBordered, windowLocationFunc }) => {
+const BottomPanelButtonContainer = styled.div`
+  background: transparent;
+  padding: 0px 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  :hover {
+    background: #dae0e6;
+  }
+`;
+
+const PostView = ({ post, isSelectable, isBordered, windowLocationFunc,savePostOnState,history }) => {
   const PostPanel = styled.div`
     min-width: 640px;
     max-width: 640px;
@@ -151,6 +167,10 @@ const PostView = ({ post, isSelectable, isBordered, windowLocationFunc }) => {
 
     ${isBordered && "border-bottom-right-radius: 5px"};
   `;
+    
+  if(!isSelectable){
+    sessionStorage.setItem("post",JSON.stringify(post));
+  }
 
   return (
     <PostPanel>
@@ -183,7 +203,9 @@ const PostView = ({ post, isSelectable, isBordered, windowLocationFunc }) => {
             <UserName href="https://www.reddit.com">
               u/{post.author.username}{" "}
             </UserName>
-            <span style={{ color: "#787c7e" }}>{moment(post.createdAt,"YYYYMMDD").fromNow()}</span>
+            <span style={{ color: "#787c7e" }}>
+              {moment(post.createdAt, "YYYYMMDD").fromNow()}
+            </span>
           </UserAndSubForoNameContainer>
         </TopOfThePostPanel>
 
@@ -194,8 +216,17 @@ const PostView = ({ post, isSelectable, isBordered, windowLocationFunc }) => {
         <PostContentContainer>{post.content}</PostContentContainer>
 
         <BottomOfThePostPanel>
-          <ModeCommentIcon style={{ paddingTop: 5, fontSize: 21 }} />
-          <strong style={{ paddingLeft: 5, paddingTop: 5 }}>46 Comments</strong>
+          <BottomPanelButtonContainer>
+            <ModeCommentIcon style={{ paddingTop: 5, fontSize: 21 }} />
+            <strong style={{ paddingLeft: 5 }}>46 Comments</strong>
+          </BottomPanelButtonContainer>
+          {
+            !isSelectable &&
+          <BottomPanelButtonContainer onClick={()=>history.push("/editpost")}>
+            <EditIcon style={{ paddingTop: 5, fontSize: 21 }} />
+            <strong style={{ paddingLeft: 5 }}>Edit</strong>
+          </BottomPanelButtonContainer>
+          }
         </BottomOfThePostPanel>
       </PostInfoPanel>
     </PostPanel>
@@ -204,4 +235,6 @@ const PostView = ({ post, isSelectable, isBordered, windowLocationFunc }) => {
 
 PostView.propTypes = propTypes;
 
-export default PostView;
+
+
+export default withRouter(PostView);
