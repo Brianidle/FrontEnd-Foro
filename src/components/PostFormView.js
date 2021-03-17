@@ -3,7 +3,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 const propTypes = {
-  buttonText: PropTypes.object.isRequired,
+  buttonText: PropTypes.string.isRequired,
   requestTrigger:PropTypes.func.isRequired,
   inputValues:PropTypes.array.isRequired,
   onChange:PropTypes.func.isRequired
@@ -40,7 +40,7 @@ const PostFormView = ({
       <div>
         <label htmlFor="title">Title: </label>
         <Input
-          value={titleInputValue}
+          value={inputValues.title??titleInputValue}
           required
           id="title"
           name="title"
@@ -50,7 +50,7 @@ const PostFormView = ({
       <div>
         <label htmlFor="content">Content: </label>
         <Input
-          value={contentInputValue}
+          value={inputValues.content??contentInputValue}
           id="content"
           name="content"
           onChange={onChange}
@@ -59,7 +59,7 @@ const PostFormView = ({
       <div>
         <label htmlFor="urlImage">Image (Optional): </label>
         <Input
-          value={urlImageInputValue}
+          value={inputValues.urlImage??urlImageInputValue}
           id="urlImage"
           name="urlImage"
           onChange={onChange}
