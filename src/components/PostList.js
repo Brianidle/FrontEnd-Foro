@@ -10,7 +10,7 @@ const propTypes = {
 
 const PostList = ({ posts }) => {
   return posts.map((post) => (
-      <PostView post={post} key={post.id} isSelectable={true} isBordered={true} windowLocationFunc={()=>window.location.href=`post/${post.id}`}/>
+      <PostView post={post} key={post.id} belongsToThePostFeed={true} windowLocationFunc={()=>window.location.href=`post/${post.id}`}/>
   ));
 };
 

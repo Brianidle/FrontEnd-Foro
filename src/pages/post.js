@@ -45,7 +45,7 @@ const Post = (props) => {
   return (
     <PostLayout>
       <PostContainer>
-        <PostView post={post} key={post.id} />
+        <PostView post={post} key={post.id} belongsToThePostFeed={false}/>
       </PostContainer>
       <AsideContainer>
         <AboutLinksContainer>ABOUT LINKS</AboutLinksContainer>

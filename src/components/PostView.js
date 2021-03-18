@@ -117,8 +117,7 @@ const BottomPanelButtonContainer = styled.div`
   }
 `;
 
-const PostView = ({ post, isSelectable, isBordered, windowLocationFunc,savePostOnState,history }) => {
-  const PostPanel = styled.div`
+const PostPanel = styled.div`
     min-width: 640px;
     max-width: 640px;
     width: 640px;
@@ -128,18 +127,19 @@ const PostView = ({ post, isSelectable, isBordered, windowLocationFunc,savePostO
     margin-bottom: 20px;
     font-size: 14px;
 
-    ${isSelectable &&
+    ${props => props.belongsToThePostFeed &&
     `cursor:pointer;
   border-radius: 5px;
   :hover {
     border:0.2px solid black;
   }`}
   `;
+  
 
   const UpDownPointsPanel = styled.div`
     width: 40px;
     background-color: #ff1a1a;
-    ${isBordered &&
+    ${props => props.belongsToThePostFeed &&
     `
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -154,7 +154,7 @@ const PostView = ({ post, isSelectable, isBordered, windowLocationFunc,savePostO
     margin-right: 8px;
     margin-left: 8px;
 
-    ${isBordered && "border-top-right-radius: 5px"};
+    ${props => props.belongsToThePostFeed && "border-top-right-radius: 5px"};
   `;
 
   const BottomOfThePostPanel = styled.div`
@@ -165,16 +165,18 @@ const PostView = ({ post, isSelectable, isBordered, windowLocationFunc,savePostO
     margin-left: 8px;
     margin-top: 4px;
 
-    ${isBordered && "border-bottom-right-radius: 5px"};
+    ${props => props.belongsToThePostFeed && "border-bottom-right-radius: 5px"};
   `;
+
+const PostView = ({ post, belongsToThePostFeed, windowLocationFunc,history }) => {
     
-  if(!isSelectable){
+  if(!belongsToThePostFeed){
     sessionStorage.setItem("post",JSON.stringify(post));
   }
 
   return (
-    <PostPanel>
-      <UpDownPointsPanel>
+    <PostPanel belongsToThePostFeed={belongsToThePostFeed}>
+      <UpDownPointsPanel belongsToThePostFeed={belongsToThePostFeed}>
         <ArrowsAndPointsContainer>
           <PointUpButton>
             <KeyboardArrowUpIcon style={{ fontSize: 25 }} />
@@ -187,7 +189,7 @@ const PostView = ({ post, isSelectable, isBordered, windowLocationFunc,savePostO
       </UpDownPointsPanel>
 
       <PostInfoPanel onClick={windowLocationFunc}>
-        <TopOfThePostPanel>
+        <TopOfThePostPanel belongsToThePostFeed={belongsToThePostFeed}>
           <ImagenSubForoContainer>
             <a href="https://www.google.com">
               <UserImage
@@ -215,13 +217,13 @@ const PostView = ({ post, isSelectable, isBordered, windowLocationFunc,savePostO
 
         <PostContentContainer>{post.content}</PostContentContainer>
 
-        <BottomOfThePostPanel>
+        <BottomOfThePostPanel belongsToThePostFeed={belongsToThePostFeed}>
           <BottomPanelButtonContainer>
             <ModeCommentIcon style={{ paddingTop: 5, fontSize: 21 }} />
             <strong style={{ paddingLeft: 5 }}>46 Comments</strong>
           </BottomPanelButtonContainer>
           {
-            !isSelectable &&
+            !belongsToThePostFeed &&
           <BottomPanelButtonContainer onClick={()=>history.push("/editpost")}>
             <EditIcon style={{ paddingTop: 5, fontSize: 21 }} />
             <strong style={{ paddingLeft: 5 }}>Edit</strong>
