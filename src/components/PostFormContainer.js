@@ -28,7 +28,7 @@ const PostFormContainer = ({
       onChange={onChange}
       inputValues={values}
       onClick={() => {
-        if (values.urlImage || values.content) {
+        if ((values.urlImage || values.content) && values.title) {
           requestTrigger({ variables: { ...values } });
         } else {
           //activar una notificación para mostrar que notifique que se necesita un content o un urlImage

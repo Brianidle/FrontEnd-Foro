@@ -9,7 +9,7 @@ const propTypes = {
   onChange:PropTypes.func.isRequired
 };
 
-const Layout = styled.div`
+const Form = styled.form`
   height: 100vh;
   text-align: center;
   margin-top: 25px;
@@ -36,7 +36,7 @@ const PostFormView = ({
   urlImageInputValue,
 }) => {
   return (
-    <Layout>
+    <Form>
       <div>
         <label htmlFor="title">Title: </label>
         <Input
@@ -78,7 +78,7 @@ const PostFormView = ({
       >
         {buttonText}
       </Button>
-    </Layout>
+    </Form>
   );
 };
 
