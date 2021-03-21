@@ -36,7 +36,7 @@ const PostFormView = ({
   urlImageInputValue,
 }) => {
   return (
-    <Form>
+    <Form onSubmit={onClick} data-testid="form">
       <div>
         <label htmlFor="title">Title: </label>
         <Input
@@ -72,9 +72,7 @@ const PostFormView = ({
         />
       </div>
       <Button
-        onClick={onClick}
-
-        data-testid="uniqueFormButton"
+        type="submit"
       >
         {buttonText}
       </Button>
