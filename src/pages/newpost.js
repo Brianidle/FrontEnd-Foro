@@ -1,34 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useMutation } from "@apollo/client";
-import { NEW_POST } from "../gql/mutation";
+import React, { useEffect } from "react";
 
-import PostFormView from "../components/PostFormView";
-import {connect} from "react-redux";
+import PostFromContainer from "../components/PostFormContainer";
 
-const NewPost = (props) => {
-  const [values, setValue] = useState([]);
-
-  const onChange = (event) => {
-    setValue({ ...values, [event.target.name]: event.target.value });
-  };
-
+const NewPost = () => {
   useEffect(() => {
     document.title = "New Post";
   });
-  
-  const [newPost, { loading }] = useMutation(NEW_POST);
-  
-  if (loading) return <p>Loading...</p>;
 
-  return (
-    <PostFormView buttonText="Create Post" requestTrigger={newPost} onChange={onChange} inputValues={values}></PostFormView>
-  );
+  return <PostFromContainer />;
 };
 
-const mapStateToProps=(state)=>{
-  return {
-    idAuthor:state.tokenState
-  }
-}
-
-export default connect(mapStateToProps)(NewPost);
+export default NewPost;
