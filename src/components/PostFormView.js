@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const propTypes = {
   buttonText: PropTypes.string.isRequired,
-  requestTrigger:PropTypes.func.isRequired,
+  onClick:PropTypes.func.isRequired,
   inputValues:PropTypes.any.isRequired,
   onChange:PropTypes.func.isRequired
 };
@@ -28,7 +28,7 @@ const Button = styled.button`
 
 const PostFormView = ({
   buttonText,
-  requestTrigger,
+  onClick,
   inputValues,
   onChange,
   titleInputValue,
@@ -40,35 +40,41 @@ const PostFormView = ({
       <div>
         <label htmlFor="title">Title: </label>
         <Input
-          value={inputValues.title?? titleInputValue??""}
+          value={inputValues.title?? titleInputValue}
           required
           id="title"
           name="title"
           onChange={onChange}
+
+          data-testid="inputTitle"
         />
       </div>
       <div>
         <label htmlFor="content">Content: </label>
         <Input
-          value={inputValues.content?? contentInputValue??""}
+          value={inputValues.content?? contentInputValue}
           id="content"
           name="content"
           onChange={onChange}
+
+          data-testid="inputContent"
         />
       </div>
       <div>
         <label htmlFor="urlImage">Image (Optional): </label>
         <Input
-          value={inputValues.urlImage?? urlImageInputValue??""}
+          value={inputValues.urlImage?? urlImageInputValue}
           id="urlImage"
           name="urlImage"
           onChange={onChange}
+
+          data-testid="inputUrlImage"
         />
       </div>
       <Button
-        onClick={() => {
-          requestTrigger({ variables: { ...inputValues } });
-        }}
+        onClick={onClick}
+
+        data-testid="uniqueFormButton"
       >
         {buttonText}
       </Button>

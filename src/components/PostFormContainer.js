@@ -1,32 +1,46 @@
 import React, { useState } from "react";
 
-import { useMutation } from "@apollo/client";
-import { NEW_POST } from "../gql/mutation";
-
 import PostFormView from "./PostFormView";
-import { withRouter } from "react-router-dom";
 
-const PostFormContainer = (props) => {
+import PropTypes from "prop-types";
+
+const propTypes = {
+  buttonText: PropTypes.string.isRequired,
+  requestTrigger: PropTypes.func.isRequired,
+};
+
+const PostFormContainer = ({
+  buttonText,
+  requestTrigger,
+  titleInputValue,
+  contentInputValue,
+  urlImageInputValue,
+}) => {
   const [values, setValue] = useState([]);
 
   const onChange = (event) => {
     setValue({ ...values, [event.target.name]: event.target.value });
   };
 
-  const [newPost] = useMutation(NEW_POST, {
-    onCompleted: () => {
-      props.history.push("/");
-    },
-  });
-
   return (
     <PostFormView
-      buttonText="Create Post"
-      requestTrigger={newPost}
+      buttonText={buttonText}
       onChange={onChange}
       inputValues={values}
+      onClick={() => {
+        if (values.urlImage || values.content) {
+          requestTrigger({ variables: { ...values } });
+        } else {
+          //activar una notificación para mostrar que notifique que se necesita un content o un urlImage
+        }
+      }}
+      titleInputValue={titleInputValue ?? ""}
+      contentInputValue={contentInputValue ?? ""}
+      urlImageInputValue={urlImageInputValue ?? ""}
     ></PostFormView>
   );
 };
 
-export default withRouter(PostFormContainer);
+PostFormContainer.propTypes = propTypes;
+
+export default PostFormContainer;
